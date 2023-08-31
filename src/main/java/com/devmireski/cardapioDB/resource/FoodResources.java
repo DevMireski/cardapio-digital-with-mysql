@@ -2,6 +2,7 @@ package com.devmireski.cardapioDB.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.devmireski.cardapioDB.DTO.FoodDTO;
 import com.devmireski.cardapioDB.entity.Food;
 import com.devmireski.cardapioDB.service.FoodService;
 
@@ -24,30 +26,40 @@ public class FoodResources {
 
 	@Autowired
 	private FoodService service;
-	
+
 	@GetMapping()
-	public ResponseEntity<List<Food>> findAll(){
+	public ResponseEntity<List<FoodDTO>> findAll() {
 		List<Food> obj = service.findAll();
-		return ResponseEntity.ok().body(obj);
+		List<FoodDTO> foodDto = obj.stream().map(x -> new FoodDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(foodDto);
 	}
-	
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Food> findById(@PathVariable Long id) {
-		Food fd = service.findById(id);
-		return ResponseEntity.ok().body(fd);
+	public ResponseEntity<FoodDTO> findById(@PathVariable Long id) {
+		Food obj = service.findById(id);
+		return ResponseEntity.ok().body(new FoodDTO(obj));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Food> insert(@RequestBody Food food) {
-		food = service.insert(food);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(food.getId()).toUri();
-		return ResponseEntity.created(uri).body(food);
+	public ResponseEntity<Void> insert(@RequestBody FoodDTO food) {
+		Food obj = service.fromDTO(food);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PutMapping(value = "/{id}")
+ 	public ResponseEntity<Void> update(@RequestBody FoodDTO objDto, @PathVariable Long id) {
+		Food obj = service.fromDTO(objDto);
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+
 }
