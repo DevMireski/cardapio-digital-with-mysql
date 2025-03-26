@@ -1,27 +1,28 @@
 # Cardápio Digital com MySQL
 
-Este projeto tem como objetivo oferecer uma solução digital para a gestão e exibição de cardápios para estabelecimentos alimentícios. Utilizando o banco de dados MySQL, a aplicação permite o cadastro, edição e remoção de itens de menu, facilitando a atualização e organização do cardápio.
+Este projeto foi desenvolvido com Java Spring Boot e MySQL para oferecer uma solução digital de gerenciamento e exibição de cardápios para estabelecimentos alimentícios. Com ele, é possível gerenciar dinamicamente os itens do cardápio, permitindo a atualização e visualização dos menus em tempo real via web.
 
 ## Funcionalidades
 
-- **Cadastro de Itens:** Adicione novos itens ao cardápio, incluindo nome, descrição, preço, e categoria.
-- **Edição e Exclusão:** Atualize ou remova itens existentes conforme necessário.
-- **Organização por Categorias:** Agrupe os itens do cardápio em categorias para facilitar a navegação.
-- **Interface Responsiva:** Visualização otimizada para diferentes dispositivos, permitindo acesso via web.
+- **Cadastro de Itens:** Permite criar, editar e remover itens do cardápio, com informações como nome, descrição, preço e categoria.
+- **Organização por Categorias:** Agrupa os itens do cardápio por categorias para facilitar a navegação.
+- **Interface Responsiva:** Visualização otimizada para diferentes dispositivos.
+- **API REST:** Desenvolvida com Spring Boot, possibilitando a integração e gerenciamento dos dados através de serviços REST.
 
 ## Tecnologias Utilizadas
 
-- **HTML, CSS e JavaScript:** Para a construção da interface web.
-- **PHP:** Para a implementação do backend e lógica de negócios.
-- **MySQL:** Banco de dados utilizado para armazenar os itens e categorias do cardápio.
-- **AJAX:** Para atualizar o conteúdo do cardápio de forma dinâmica, sem recarregar a página.
+- **Java 11** ou superior
+- **Spring Boot:** Framework para o desenvolvimento de aplicações web e microserviços.
+- **Spring Data JPA:** Para a integração com o MySQL.
+- **MySQL:** Banco de dados relacional para armazenamento dos dados.
+- **Thymeleaf:** (Opcional) Motor de templates para renderização no lado do servidor.
+- **Maven/Gradle:** Para gerenciamento de dependências e build.
 
 ## Requisitos
 
-- **Servidor Web:** Apache, Nginx ou similar.
-- **PHP:** Versão 7 ou superior.
-- **MySQL:** Para gerenciamento do banco de dados.
-- **Composer:** (Opcional) Caso haja dependências gerenciadas via Composer.
+- **Java 11** ou superior.
+- **MySQL:** Instalado localmente ou via container Docker.
+- **Maven** (ou Gradle) para gerenciamento do projeto.
 
 ## Instalação e Configuração
 
